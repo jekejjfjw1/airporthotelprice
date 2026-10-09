@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="학원 프로젝트용 가상 항공편·호텔 검색 결과 예제 사이트">
+  <title>TripSignal Travel — 항공편과 숙소 검색</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="brand-symbol">✦</span><span><b>TripSignal Travel</b><small>FLIGHTS & STAYS</small></span></a>
+    <div class="top-note"><span class="dot"></span> 데모 상품 목록</div>
+  </header>
+  <main id="top" class="wrap">
+    <section class="intro">
+      <div class="eyebrow">PLAN YOUR NEXT TRIP</div>
+      <h1>항공편과 숙소를<br><em>한눈에 비교하세요.</em></h1>
+      <p>아래는 크롤링 연습을 위해 만든 가상 여행 검색 결과입니다. 가격만 주기적으로 갱신되며, 가격 이력·변동률은 별도 크롤러가 기록합니다.</p>
+      <div class="intro-chips"><span>✈ 다중 항공편</span><span>⌂ 날짜별 숙소</span><span>↕ 가격·평점 정렬</span></div>
+    </section>
+    <div class="demo-note"><b>실습 데이터 안내</b><span>실제 항공사·호텔 판매 가격이 아닙니다. 예제 가격은 GitHub Actions를 사용하면 약 5분마다 업데이트됩니다. 과제용 데이터이므로 실제 예약에 사용할 수 없습니다.</span></div>
+
+    <section class="search-box" aria-label="검색 조건">
+      <div class="tab-row"><button class="tab active" data-tab="flights">✈ 항공편</button><button class="tab" data-tab="hotels">⌂ 숙소</button></div>
+      <div id="flight-search" class="search-grid">
+        <label>출발지<select id="origin"><option value="ICN">서울 인천 (ICN)</option><option value="PUS">부산 김해 (PUS)</option><option value="GMP">서울 김포 (GMP)</option></select></label>
+        <label>도착지<select id="destination"><option value="NRT">도쿄 나리타 (NRT)</option><option value="KIX">오사카 간사이 (KIX)</option><option value="FUK">후쿠오카 (FUK)</option><option value="TPE">타이베이 (TPE)</option></select></label>
+        <label>출발일<input id="flight-start" type="date" value="2026-11-02"></label>
+        <label>도착 날짜 범위<input id="flight-end" type="date" value="2026-11-05"></label>
+        <button id="filter-flights" class="primary-btn">항공편 검색 <span>→</span></button>
+      </div>
+      <div id="hotel-search" class="search-grid hidden">
+        <label>도시<select id="hotel-city"><option value="도쿄">도쿄</option><option value="오사카">오사카</option><option value="후쿠오카">후쿠오카</option><option value="타이베이">타이베이</option></select></label>
+        <label>체크인<input id="checkin" type="date" value="2026-11-02"></label>
+        <label>체크아웃<input id="checkout" type="date" value="2026-11-05"></label>
+        <label>정렬<select id="hotel-sort"><option value="price">가격 낮은순</option><option value="rating">평점 높은순</option></select></label>
+        <button id="filter-hotels" class="primary-btn">숙소 검색 <span>→</span></button>
+      </div>
+      <p class="form-hint">검색 조건을 바꾸면 현재 HTML에 포함된 예시 상품 목록을 필터링합니다. 크롤러는 페이지의 상품명·날짜·현재 가격을 직접 읽습니다.</p>
+    </section>
+
+    <section class="list-section">
+      <div class="list-heading"><div><div class="eyebrow" id="list-kicker">FLIGHT RESULTS</div><h2 id="list-title">항공편 검색 결과</h2></div><span id="result-count" class="count-pill">항공편 8개</span></div>
+      <div id="flight-results" class="cards">
+        <article class="product-card" data-product-type="flight" data-product-id="flight-KD701" data-product-name="Korea Demo Air KD701" data-date="2026-11-02" data-origin="ICN" data-destination="NRT">
+          <div class="card-top"><span class="carrier-icon">K</span><div class="main-info"><h3>Korea Demo Air</h3><p>KD701 · 직항 · 2시간 25분</p></div><span class="date-tag">11월 2일</span></div>
+          <div class="journey"><div><b>08:20</b><small>인천 ICN</small></div><div class="journey-line"><span>2시간 25분</span><i></i></div><div class="right"><b>10:45</b><small>도쿄 나리타 NRT</small></div></div>
+          <div class="price-row"><div><small>성인 1인 편도 예시 가격</small><strong class="price-value" data-product-id="flight-KD701" data-price-value="339000">₩339,000</strong></div><span class="included">세금 포함 예시</span></div>
+        </article>
+        <article class="product-card" data-product-type="flight" data-product-id="flight-SS103" data-product-name="Seoul Sample Airlines SS103" data-date="2026-11-02" data-origin="ICN" data-destination="NRT">
+          <div class="card-top"><span class="carrier-icon purple">S</span><div class="main-info"><h3>Seoul Sample Airlines</h3><p>SS103 · 직항 · 2시간 25분</p></div><span class="date-tag">11월 2일</span></div>
+          <div class="journey"><div><b>10:05</b><small>인천 ICN</small></div><div class="journey-line"><span>2시간 25분</span><i></i></div><div class="right"><b>12:30</b><small>도쿄 나리타 NRT</small></div></div>
+          <div class="price-row"><div><small>성인 1인 편도 예시 가격</small><strong class="price-value" data-product-id="flight-SS103" data-price-value="363000">₩363,000</strong></div><span class="included">세금 포함 예시</span></div>
+        </article>
+        <article class="product-card" data-product-type="flight" data-product-id="flight-BD205" data-product-name="Blue Demo Jet BD205" data-date="2026-11-03" data-origin="ICN" data-destination="NRT">
+          <div class="card-top"><span class="carrier-icon green">B</span><div class="main-info"><h3>Blue Demo Jet</h3><p>BD205 · 직항 · 2시간 25분</p></div><span class="date-tag">11월 3일</span></div>
+          <div class="journey"><div><b>13:40</b><small>인천 ICN</small></div><div class="journey-line"><span>2시간 25분</span><i></i></div><div class="right"><b>16:05</b><small>도쿄 나리타 NRT</small></div></div>
+          <div class="price-row"><div><small>성인 1인 편도 예시 가격</small><strong class="price-value" data-product-id="flight-BD205" data-price-value="289000">₩289,000</strong></div><span class="included">세금 포함 예시</span></div>
+        </article>
+        <article class="product-card" data-product-type="flight" data-product-id="flight-TS221" data-product-name="Travel Sample Air TS221" data-date="2026-11-03" data-origin="ICN" data-destination="KIX">
+          <div class="card-top"><span class="carrier-icon orange">T</span><div class="main-info"><h3>Travel Sample Air</h3><p>TS221 · 직항 · 1시간 45분</p></div><span class="date-tag">11월 3일</span></div>
+          <div class="journey"><div><b>09:15</b><small>인천 ICN</small></div><div class="journey-line"><span>1시간 45분</span><i></i></div><div class="right"><b>11:00</b><small>오사카 간사이 KIX</small></div></div>
+          <div class="price-row"><div><small>성인 1인 편도 예시 가격</small><strong class="price-value" data-product-id="flight-TS221" data-price-value="235000">₩235,000</strong></div><span class="included">세금 포함 예시</span></div>
+        </article>
+        <article class="product-card" data-product-type="flight" data-product-id="flight-BD121" data-product-name="Busan Demo Air BD121" data-date="2026-11-04" data-origin="PUS" data-destination="FUK">
+          <div class="card-top"><span class="carrier-icon green">B</span><div class="main-info"><h3>Busan Demo Air</h3><p>BD121 · 직항 · 1시간 5분</p></div><span class="date-tag">11월 4일</span></div>
+          <div class="journey"><div><b>11:25</b><small>부산 김해 PUS</small></div><div class="journey-line"><span>1시간 5분</span><i></i></div><div class="right"><b>12:30</b><small>후쿠오카 FUK</small></div></div>
+          <div class="price-row"><div><small>성인 1인 편도 예시 가격</small><strong class="price-value" data-product-id="flight-BD121" data-price-value="176000">₩176,000</strong></div><span class="included">세금 포함 예시</span></div>
+        </article>
+        <article class="product-card" data-product-type="flight" data-product-id="flight-SI611" data-product-name="Sample Island Airlines SI611" data-date="2026-11-04" data-origin="GMP" data-destination="TPE">
+          <div class="card-top"><span class="carrier-icon purple">S</span><div class="main-info"><h3>Sample Island Airlines</h3><p>SI611 · 직항 · 2시간 40분</p></div><span class="date-tag">11월 4일</span></div>
+          <div class="journey"><div><b>07:50</b><small>김포 GMP</small></div><div class="journey-line"><span>2시간 40분</span><i></i></div><div class="right"><b>09:35</b><small>타이베이 TPE</small></div></div>
+          <div class="price-row"><div><small>성인 1인 편도 예시 가격</small><strong class="price-value" data-product-id="flight-SI611" data-price-value="247000">₩247,000</strong></div><span class="included">세금 포함 예시</span></div>
+        </article>
+        <article class="product-card" data-product-type="flight" data-product-id="flight-WD410" data-product-name="World Demo Airways WD410" data-date="2026-11-05" data-origin="ICN" data-destination="BKK">
+          <div class="card-top"><span class="carrier-icon">W</span><div class="main-info"><h3>World Demo Airways</h3><p>WD410 · 직항 · 5시간 50분</p></div><span class="date-tag">11월 5일</span></div>
+          <div class="journey"><div><b>18:30</b><small>인천 ICN</small></div><div class="journey-line"><span>5시간 50분</span><i></i></div><div class="right"><b>22:20</b><small>방콕 BKK</small></div></div>
+          <div class="price-row"><div><small>성인 1인 편도 예시 가격</small><strong class="price-value" data-product-id="flight-WD410" data-price-value="406000">₩406,000</strong></div><span class="included">세금 포함 예시</span></div>
+        </article>
+        <article class="product-card" data-product-type="flight" data-product-id="flight-KD702" data-product-name="Korea Demo Air KD702" data-date="2026-11-05" data-origin="ICN" data-destination="NRT">
+          <div class="card-top"><span class="carrier-icon">K</span><div class="main-info"><h3>Korea Demo Air</h3><p>KD702 · 직항 · 2시간 30분</p></div><span class="date-tag">11월 5일</span></div>
+          <div class="journey"><div><b>15:20</b><small>인천 ICN</small></div><div class="journey-line"><span>2시간 30분</span><i></i></div><div class="right"><b>17:50</b><small>도쿄 나리타 NRT</small></div></div>
+          <div class="price-row"><div><small>성인 1인 편도 예시 가격</small><strong class="price-value" data-product-id="flight-KD702" data-price-value="301000">₩301,000</strong></div><span class="included">세금 포함 예시</span></div>
+        </article>
+      </div>
+
+      <div id="hotel-results" class="cards hidden">
+        <article class="product-card" data-product-type="hotel" data-product-id="hotel-TK101" data-product-name="Tokyo Maple Hotel" data-city="도쿄" data-checkin="2026-11-02" data-checkout="2026-11-05" data-rating="4.7">
+          <div class="card-top"><span class="hotel-icon">⌂</span><div class="main-info"><h3>Tokyo Maple Hotel</h3><p>도쿄 · 더블룸 · 조식 선택 가능</p></div><span class="date-tag">예약 가능 예시</span></div>
+          <div class="hotel-meta"><span class="rating">★ 4.7</span><span>후기 1,284개 (가상)</span><span>무료 취소 옵션</span></div>
+          <div class="price-row"><div><small>객실 1개 · 1박 기준 예시 가격</small><strong class="price-value" data-product-id="hotel-TK101" data-price-value="147000">₩147,000</strong></div><span class="included">세금 별도 예시</span></div>
+        </article>
+        <article class="product-card" data-product-type="hotel" data-product-id="hotel-TK102" data-product-name="Shinjuku Garden Stay" data-city="도쿄" data-checkin="2026-11-02" data-checkout="2026-11-05" data-rating="4.9">
+          <div class="card-top"><span class="hotel-icon purple">⌂</span><div class="main-info"><h3>Shinjuku Garden Stay</h3><p>도쿄 · 스탠다드룸 · 역 근처</p></div><span class="date-tag">예약 가능 예시</span></div>
+          <div class="hotel-meta"><span class="rating">★ 4.9</span><span>후기 956개 (가상)</span><span>무료 취소 옵션</span></div>
+          <div class="price-row"><div><small>객실 1개 · 1박 기준 예시 가격</small><strong class="price-value" data-product-id="hotel-TK102" data-price-value="164000">₩164,000</strong></div><span class="included">세금 별도 예시</span></div>
+        </article>
+        <article class="product-card" data-product-type="hotel" data-product-id="hotel-OS201" data-product-name="Osaka Namba Loft" data-city="오사카" data-checkin="2026-11-02" data-checkout="2026-11-05" data-rating="4.6">
+          <div class="card-top"><span class="hotel-icon orange">⌂</span><div class="main-info"><h3>Osaka Namba Loft</h3><p>오사카 · 로프트룸 · 난바 지역</p></div><span class="date-tag">예약 가능 예시</span></div>
+          <div class="hotel-meta"><span class="rating">★ 4.6</span><span>후기 672개 (가상)</span><span>도심 숙소</span></div>
+          <div class="price-row"><div><small>객실 1개 · 1박 기준 예시 가격</small><strong class="price-value" data-product-id="hotel-OS201" data-price-value="113000">₩113,000</strong></div><span class="included">세금 별도 예시</span></div>
+        </article>
+        <article class="product-card" data-product-type="hotel" data-product-id="hotel-OS202" data-product-name="Osaka River Suites" data-city="오사카" data-checkin="2026-11-03" data-checkout="2026-11-06" data-rating="4.8">
+          <div class="card-top"><span class="hotel-icon purple">⌂</span><div class="main-info"><h3>Osaka River Suites</h3><p>오사카 · 스위트룸 · 강 전망</p></div><span class="date-tag">예약 가능 예시</span></div>
+          <div class="hotel-meta"><span class="rating">★ 4.8</span><span>후기 518개 (가상)</span><span>도심 숙소</span></div>
+          <div class="price-row"><div><small>객실 1개 · 1박 기준 예시 가격</small><strong class="price-value" data-product-id="hotel-OS202" data-price-value="212000">₩212,000</strong></div><span class="included">세금 별도 예시</span></div>
+        </article>
+        <article class="product-card" data-product-type="hotel" data-product-id="hotel-FK301" data-product-name="Fukuoka Harbor Inn" data-city="후쿠오카" data-checkin="2026-11-04" data-checkout="2026-11-07" data-rating="4.5">
+          <div class="card-top"><span class="hotel-icon green">⌂</span><div class="main-info"><h3>Fukuoka Harbor Inn</h3><p>후쿠오카 · 컴포트룸 · 하카타</p></div><span class="date-tag">예약 가능 예시</span></div>
+          <div class="hotel-meta"><span class="rating">★ 4.5</span><span>후기 834개 (가상)</span><span>역 도보 8분</span></div>
+          <div class="price-row"><div><small>객실 1개 · 1박 기준 예시 가격</small><strong class="price-value" data-product-id="hotel-FK301" data-price-value="85000">₩85,000</strong></div><span class="included">세금 별도 예시</span></div>
+        </article>
+        <article class="product-card" data-product-type="hotel" data-product-id="hotel-TP401" data-product-name="Taipei Lantern House" data-city="타이베이" data-checkin="2026-11-02" data-checkout="2026-11-05" data-rating="4.8">
+          <div class="card-top"><span class="hotel-icon">⌂</span><div class="main-info"><h3>Taipei Lantern House</h3><p>타이베이 · 더블룸 · 시내</p></div><span class="date-tag">예약 가능 예시</span></div>
+          <div class="hotel-meta"><span class="rating">★ 4.8</span><span>후기 1,102개 (가상)</span><span>조식 포함</span></div>
+          <div class="price-row"><div><small>객실 1개 · 1박 기준 예시 가격</small><strong class="price-value" data-product-id="hotel-TP401" data-price-value="119000">₩119,000</strong></div><span class="included">세금 별도 예시</span></div>
+        </article>
+      </div>
+      <p id="empty-state" class="empty-state hidden">조건에 맞는 예시 상품이 없습니다. 검색 날짜나 도시를 바꿔 보세요.</p>
+    </section>
+    <footer><b>TripSignal Travel</b><span>크롤링 과제용 가상 사이트 · 현재 가격만 표시합니다. 가격 변동 기록은 별도 크롤러가 담당합니다.</span></footer>
+  </main>
+  <script src="site.js"></script>
+</body>
+</html>
