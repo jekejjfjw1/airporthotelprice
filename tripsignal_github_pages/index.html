@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101c35">
+  <meta name="description" content="가상 항공권과 숙소 가격 변동을 추적하는 학원 프로젝트 데모">
+  <title>TripSignal — 여행 가격 추적 실험실</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="TripSignal 홈">
+      <span class="brand-icon" aria-hidden="true">↗</span>
+      <span><strong>TripSignal</strong><small>TRAVEL PRICE LAB</small></span>
+    </a>
+    <nav class="main-nav" aria-label="주 메뉴">
+      <button class="nav-link active" data-view="flights">항공편</button>
+      <button class="nav-link" data-view="hotels">숙소</button>
+      <button class="nav-link" data-view="history">가격 기록</button>
+    </nav>
+    <div class="header-status"><span class="live-dot"></span> 데모 가격 추적 중</div>
+  </header>
+
+  <main id="top" class="page-shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-line"></span> SMART TRAVEL MONITOR</div>
+        <h1>가격이 움직이는 순간을<br><em>놓치지 마세요.</em></h1>
+        <p>항공편과 숙소의 가상 가격을 주기적으로 확인하고, 검색 이력을 쌓아 변동 흐름을 살펴보세요.</p>
+        <div class="hero-pills"><span>✦ 가격 이력 저장</span><span>↗ 상승·하락 분석</span><span>⌁ 최저가 알림</span></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="globe">✈</div><div class="floating-card float-a"><span>LOWEST SEEN</span><strong>가격 추적</strong><small>브라우저에 기록</small></div>
+        <div class="floating-card float-b"><span>LIVE DEMO</span><strong><i></i> 12초 주기</strong><small>가상 가격 변동</small></div>
+      </div>
+    </section>
+
+    <div class="demo-notice"><span class="notice-icon">i</span><div><strong>학원 프로젝트용 데모입니다.</strong><span>항공편·호텔·가격·평점은 모두 가상 데이터이며 실제 운항편, 예약 가능 객실 또는 판매 가격이 아닙니다. 기록은 현재 브라우저에 저장됩니다.</span></div></div>
+
+    <section class="stat-grid" aria-label="가격 추적 요약">
+      <article class="stat-card"><div class="stat-top"><span>현재 검색 결과</span><span class="stat-icon blue">⌕</span></div><strong id="stat-results">—</strong><small>현재 조건에 맞는 상품 수</small></article>
+      <article class="stat-card"><div class="stat-top"><span>기록된 최저가</span><span class="stat-icon green">↘</span></div><strong id="stat-lowest">—</strong><small>현재 브라우저에 저장된 기록 기준</small></article>
+      <article class="stat-card"><div class="stat-top"><span>저장된 가격 기록</span><span class="stat-icon purple">▤</span></div><strong id="stat-records">0</strong><small>항공편·숙소의 가격 관측 횟수</small></article>
+      <article class="stat-card"><div class="stat-top"><span>마지막 확인</span><span class="stat-icon orange">◷</span></div><strong id="stat-updated">아직 없음</strong><small>페이지가 열려 있는 동안 갱신</small></article>
+    </section>
+
+    <section id="search-panel" class="search-panel">
+      <div class="section-heading">
+        <div><div class="eyebrow small-eyebrow">SEARCH & COMPARE</div><h2 id="search-title">항공편 검색</h2></div>
+        <button id="refresh-now" class="button button-outline"><span aria-hidden="true">↻</span> 가격 다시 확인</button>
+      </div>
+      <div id="flight-controls" class="filters">
+        <label class="filter-field"><span>출발 공항</span><select id="origin"><option value="ICN">인천 (ICN)</option><option value="GMP">김포 (GMP)</option><option value="PUS">부산/김해 (PUS)</option><option value="NRT">도쿄 나리타 (NRT)</option><option value="KIX">오사카 간사이 (KIX)</option><option value="FUK">후쿠오카 (FUK)</option><option value="TPE">타이베이 (TPE)</option><option value="BKK">방콕 (BKK)</option></select></label>
+        <button id="swap-route" class="swap-button" title="출발지와 도착지 바꾸기" aria-label="출발지와 도착지 바꾸기">⇄</button>
+        <label class="filter-field"><span>도착 공항</span><select id="destination"><option value="NRT">도쿄 나리타 (NRT)</option><option value="KIX">오사카 간사이 (KIX)</option><option value="FUK">후쿠오카 (FUK)</option><option value="TPE">타이베이 (TPE)</option><option value="BKK">방콕 (BKK)</option><option value="ICN">인천 (ICN)</option><option value="GMP">김포 (GMP)</option><option value="PUS">부산/김해 (PUS)</option></select></label>
+        <label class="filter-field"><span>여행 시작일</span><input id="flight-start" type="date"></label>
+        <label class="filter-field"><span>여행 종료일</span><input id="flight-end" type="date"></label>
+        <button id="search-flights" class="button button-primary">항공편 찾기 <span>→</span></button>
+      </div>
+      <div id="hotel-controls" class="filters hidden">
+        <label class="filter-field"><span>도시</span><select id="hotel-city"><option>도쿄</option><option>오사카</option><option>후쿠오카</option><option>타이베이</option></select></label>
+        <label class="filter-field"><span>체크인</span><input id="checkin" type="date"></label>
+        <label class="filter-field"><span>체크아웃</span><input id="checkout" type="date"></label>
+        <label class="filter-field"><span>정렬</span><select id="hotel-sort"><option value="price">총액 낮은순</option><option value="rating">평점 높은순</option></select></label>
+        <button id="search-hotels" class="button button-primary">숙소 찾기 <span>→</span></button>
+      </div>
+      <p class="filter-hint" id="filter-hint">여행 날짜 범위 안의 여러 항공편을 검색합니다. 데모 검색은 최대 15일 범위입니다.</p>
+    </section>
+
+    <section id="results-section" class="results-section">
+      <div class="results-heading"><div><span class="results-kicker" id="results-kicker">FLIGHT RESULTS</span><h2 id="results-title">추천 항공편</h2></div><div class="results-meta"><span class="result-count" id="result-count">0개 결과</span><span class="auto-refresh"><i></i> 12초마다 가격 갱신</span></div></div>
+      <div id="results" class="results-grid"></div>
+      <div id="empty-state" class="empty-state hidden"><span>⌕</span><strong>검색 결과가 없습니다.</strong><p>날짜나 검색 조건을 바꿔 다시 검색해 보세요.</p></div>
+    </section>
+
+    <section id="history-section" class="history-section hidden">
+      <div class="section-heading"><div><div class="eyebrow small-eyebrow">PRICE INTELLIGENCE</div><h2>가격 변동 기록</h2><p class="section-subtitle">상품을 선택하면 조회할 때마다 저장한 가격 변화를 확인할 수 있어요.</p></div><button id="clear-history" class="button button-outline button-danger">기록 지우기</button></div>
+      <div class="history-layout">
+        <article class="chart-card"><div class="chart-header"><div><span class="results-kicker">PRICE HISTORY</span><h3 id="chart-title">상품을 선택하세요</h3></div><select id="history-item-select" aria-label="가격 그래프 상품 선택"><option value="">상품 선택</option></select></div><div id="chart-summary" class="chart-summary"><span>기록이 쌓이면 그래프가 표시됩니다.</span></div><div class="chart-wrap"><svg id="price-chart" viewBox="0 0 760 260" role="img" aria-label="가격 변동 그래프"><text x="380" y="130" text-anchor="middle" class="chart-empty-label">가격 기록을 기다리는 중</text></svg></div><div class="chart-legend"><span><i></i> 저장된 가격</span><span id="chart-record-count">0회 관측</span></div></article>
+        <aside class="alert-card"><div class="alert-icon">⌁</div><h3>목표 가격 알림</h3><p>선택한 상품 가격이 목표 금액 이하로 내려오면 화면에 알려줍니다.</p><label for="target-price">목표 가격 (원)</label><div class="target-input"><input id="target-price" type="number" min="0" step="1000" placeholder="예: 250000"><span>₩</span></div><button id="save-target" class="button button-primary full-width">알림 가격 저장</button><div id="alert-message" class="alert-message">상품을 선택한 뒤 목표 가격을 저장하세요.</div></aside>
+      </div>
+      <article class="history-table-card"><div class="table-heading"><div><h3>최근 가격 관측</h3><p>최근 저장한 가격 기록을 확인하세요.</p></div><span class="table-badge">LOCAL HISTORY</span></div><div class="table-scroll"><table><thead><tr><th>확인 시각</th><th>상품</th><th>종류</th><th>가격</th><th>이전 대비</th></tr></thead><tbody id="history-table-body"><tr><td colspan="5" class="table-empty">아직 저장된 기록이 없습니다. 검색 화면을 열어 두면 가격이 기록됩니다.</td></tr></tbody></table></div></article>
+    </section>
+
+    <footer class="site-footer"><div class="footer-brand"><span class="brand-icon">↗</span><strong>TripSignal</strong></div><p>학원 프로젝트용 가격 추적 시뮬레이터 · 실제 여행 상품이 아닙니다.</p><button id="reset-demo" class="text-button">데모 가격/검색 초기화</button></footer>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
