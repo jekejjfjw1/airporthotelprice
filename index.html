@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TripSignal | 여행 가격 모니터</title>
+<style>
+:root{--blue:#4263eb;--ink:#17233d;--muted:#78849a;--line:#e7ebf3;--bg:#f5f7fc}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,"Noto Sans KR",sans-serif;color:var(--ink)}
+header{height:70px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center}.nav,main{width:min(1120px,calc(100% - 36px));margin:auto}.nav{display:flex;justify-content:space-between;align-items:center}.logo{font-size:21px;font-weight:850;letter-spacing:-.7px}.mark{display:inline-grid;place-items:center;width:36px;height:36px;background:var(--blue);color:white;border-radius:12px;margin-right:9px}.live{background:#eef2ff;color:#3f5fd7;padding:9px 12px;border-radius:99px;font-size:12px;font-weight:700}
+.hero{margin:30px 0 20px;padding:36px 38px;border-radius:24px;color:white;background:linear-gradient(115deg,#14213d,#2d478e 70%,#4263eb);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:280px;height:280px;border:1px solid #ffffff30;border-radius:50%;right:65px;top:-140px;box-shadow:0 0 0 35px #ffffff09,0 0 0 70px #ffffff08}.eyebrow{font-size:11px;letter-spacing:2px;color:#c9d4ff;font-weight:bold;margin-bottom:12px}h1{font-size:clamp(30px,4vw,43px);line-height:1.2;letter-spacing:-1.7px;margin:0 0 12px}.hero p{color:#dce4ff;font-size:14px;line-height:1.7;margin:0}.hero-foot{margin-top:23px;font-size:12px;color:#e5eaff}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#5df0b0;margin-right:8px}
+.search{background:#fff;border:1px solid var(--line);border-radius:17px;padding:14px;display:grid;grid-template-columns:1.2fr 1fr 1fr auto;gap:10px}.field{padding:10px 12px;border:1px solid #edf0f6;border-radius:11px}.field small{display:block;color:#8792a6;font-size:11px;margin-bottom:6px}.field b{font-size:13px}.search button{background:var(--blue);border:0;color:#fff;border-radius:11px;padding:0 22px;font-weight:bold;cursor:pointer}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:18px 0 30px}.stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:17px 19px}.stat small{display:block;color:var(--muted);font-size:11px;margin-bottom:7px}.stat strong{font-size:21px}.heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:15px}.heading h2{margin:0 0 5px;font-size:21px}.heading p{margin:0;color:var(--muted);font-size:12px}.updated{text-align:right;color:var(--muted);font-size:11px;line-height:1.8}.updated b{color:#36425a}.tabs{display:flex;gap:7px;margin-bottom:14px}.tab{border:1px solid #e1e6f0;background:white;color:#69758b;border-radius:99px;padding:9px 15px;font-weight:bold;font-size:12px;cursor:pointer}.tab.active{background:#192747;color:white;border-color:#192747}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{background:white;border:1px solid var(--line);border-radius:17px;padding:19px;transition:.2s}.card.changed{border-color:#8097ff;box-shadow:0 0 0 3px #4263eb10}.topline{display:flex;align-items:center;justify-content:space-between}.kind{font-size:11px;color:#778398}.icon{display:inline-grid;place-items:center;width:29px;height:29px;background:#f0f3ff;border-radius:9px;margin-right:7px}.badge{font-size:10px;font-weight:bold;background:#e9f8f0;color:#13835a;padding:6px 8px;border-radius:7px}.badge.up{background:#fff0e6;color:#b75a28}.name{font-size:17px;font-weight:800;margin:17px 0 5px}.detail{font-size:11px;color:#8a94a6}.price{font-size:28px;letter-spacing:-1px;font-weight:850;margin-top:17px;font-variant-numeric:tabular-nums}.price small{font-size:12px;color:#788397;letter-spacing:0}.spark{height:25px;display:flex;align-items:end;gap:3px;margin-top:9px}.spark i{display:block;flex:1;min-height:5px;background:#dce4ff;border-radius:3px 3px 0 0}.spark i:last-child{background:var(--blue)}.bottom{border-top:1px solid #f0f2f7;margin-top:14px;padding-top:11px;display:flex;justify-content:space-between;color:#8a94a6;font-size:11px}.delta.down{color:#13835a;font-weight:bold}.delta.up{color:#b75a28;font-weight:bold}.notice{font-size:11px;line-height:1.7;color:#7c879b;border:1px solid var(--line);background:#fbfcff;border-radius:12px;padding:14px 16px;margin:20px 0 35px}footer{text-align:center;padding:22px;background:white;border-top:1px solid var(--line);color:#8a94a6;font-size:11px}
+@media(max-width:760px){.search{grid-template-columns:1fr 1fr}.search button{min-height:46px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.hero:after{right:-150px}}@media(max-width:520px){.hero{padding:27px 22px}.hero:after{display:none}.cards{grid-template-columns:1fr}.stats{gap:7px}.stat{padding:13px 10px}.stat strong{font-size:16px}.stat small{font-size:10px}.search{padding:10px}.nav,main{width:calc(100% - 28px)}}
+</style></head>
+<body>
+<header><div class="nav"><div class="logo"><span class="mark">✈</span>TripSignal</div><div class="live">● API 가격 갱신</div></div></header>
+<main>
+<section class="hero"><div class="eyebrow">TRAVEL PRICE TRACKER</div><h1>여행 가격 변동을<br>한눈에 확인하세요.</h1><p>항공권과 숙소의 시연용 가격을 비교하고<br>서버 응답에 담긴 가격 변화를 확인할 수 있어요.</p><div class="hero-foot"><span class="dot"></span><span id="status">서버 연결 중…</span>　·　12초마다 API 요청</div></section>
+<section class="search"><div class="field"><small>여행지</small><b>어디로 떠나시나요?</b></div><div class="field"><small>출발일</small><b>2026. 11. 12</b></div><div class="field"><small>도착일</small><b>2026. 11. 16</b></div><button id="searchBtn">가격 확인하기　⌕</button></section>
+<section class="stats"><div class="stat"><small>모니터링 항목</small><strong id="count">—</strong></div><div class="stat"><small>자동 요청 주기</small><strong>12초</strong></div><div class="stat"><small>가격 상태</small><strong id="market">불러오는 중</strong></div></section>
+<section><div class="heading"><div><h2>오늘의 여행 가격</h2><p>Network 탭에서 /api/prices 응답을 확인할 수 있습니다.</p></div><div class="updated">마지막 응답<br><b id="updated">불러오는 중…</b></div></div>
+<div class="tabs"><button class="tab active" data-filter="전체">전체 보기</button><button class="tab" data-filter="항공권">✈ 항공권</button><button class="tab" data-filter="호텔">▦ 호텔</button></div><div class="cards" id="cards"></div></section>
+<div class="notice">ⓘ 학습용 시연 데이터입니다. 실제 판매 가격이 아닙니다. 가격은 브라우저에서 임의로 바꾸는 대신 서버의 <b>/api/prices</b> 요청 응답에서 받아옵니다. Chrome 개발자 도구의 Network 탭에서 해당 요청과 JSON 응답을 확인하세요.</div>
+</main><footer>TripSignal · 학습용 가격 API 시연 사이트</footer>
+<script>
+const API_URL="/api/prices";
+let filter="전체",previous={};
+const won=n=>Math.round(n).toLocaleString("ko-KR");
+function render(data){
+const root=document.getElementById("cards");root.innerHTML="";let changed=0;
+document.getElementById("updated").textContent=new Date(data.updated_at*1000).toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+document.getElementById("count").textContent=data.prices.length+"개";
+data.prices.forEach(p=>{const old=previous[p.id],delta=old==null?0:p.price-old;if(delta)changed++;previous[p.id]=p.price;if(filter!=="전체"&&p.kind!==filter)return;
+const dir=delta<0?"down":delta>0?"up":"",badge=old==null?"첫 조회":delta<0?"▼ 가격 하락":delta>0?"▲ 가격 상승":"가격 유지";
+const card=document.createElement("article");card.className="card"+(delta?" changed":"");
+const hist=[p.price-(delta||p.price*.02),p.price+(delta||p.price*.01),p.price];const min=Math.min(...hist),max=Math.max(...hist);
+const bars=hist.map(v=>`<i style="height:${max===min?45:18+(v-min)/(max-min)*72}%"></i>`).join("");
+card.innerHTML=`<div class="topline"><div class="kind"><span class="icon">${p.kind==="酒店"?"▦":p.kind==="호텔"?"▦":"✈"}</span>${p.kind}</div><span class="badge ${dir}">${badge}</span></div><div class="name">${p.name}</div><div class="detail">${p.detail}</div><div class="price">${won(p.price)} <small>원</small></div><div class="spark">${bars}</div><div class="bottom"><span>최근 가격 흐름</span><span class="delta ${dir}">${old==null?"초기 가격":(delta>0?"+":"")+won(delta)+"원"}</span></div>`;
+root.appendChild(card);
+});
+document.getElementById("market").textContent=changed?"가격 변동 감지":"정상 업데이트";
+}
+async function fetchPrices(){
+try{const res=await fetch(API_URL+"?t="+Date.now(),{cache:"no-store"});if(!res.ok)throw new Error("HTTP "+res.status);const data=await res.json();document.getElementById("status").textContent="서버 연결됨 · HTTP "+res.status;render(data);}
+catch(e){document.getElementById("status").textContent="서버 연결 실패 — start_server.bat 실행 여부를 확인하세요";document.getElementById("cards").innerHTML='<div class="card">서버가 실행 중이 아닙니다. ZIP의 <b>start_server.bat</b> 파일을 더블클릭한 뒤 http://127.0.0.1:8000 을 다시 여세요.</div>';}
+}
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");filter=b.dataset.filter;fetchPrices()}));
+document.getElementById("searchBtn").addEventListener("click",()=>{fetchPrices();document.getElementById("cards").scrollIntoView({behavior:"smooth"});});
+fetchPrices();setInterval(fetchPrices,12000);
+</script></body></html>
